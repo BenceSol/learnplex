@@ -16,7 +16,7 @@ export type Query = {
   hello: Scalars['String']
   bye: Scalars['String']
   users: Array<User>
-  userCountByDate: Array<UsersCount>
+  usersCountByDate: Array<UsersCount>
   topics: Array<Topic>
   resources: Array<Resource>
   primaryResourceBySlug: Resource
@@ -293,7 +293,8 @@ export type ProfessionalDetails = {
 export type UsersCount = {
   __typename?: 'UsersCount'
   createdDate: Scalars['DateTime']
-  count?: Maybe<Scalars['Float']>
+  count: Scalars['Float']
+  cumulativeCount: Scalars['Float']
 }
 
 export type Mutation = {
