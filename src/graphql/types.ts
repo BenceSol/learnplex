@@ -247,7 +247,13 @@ export type Topic = {
   id: Scalars['ID']
   title: Scalars['String']
   slug: Scalars['String']
+  imageType: ImageType
+  image: Scalars['String']
   resources: Array<Resource>
+}
+
+export enum ImageType {
+  DevIcon = 'DEV_ICON',
 }
 
 export type Progress = {
@@ -311,6 +317,7 @@ export type Mutation = {
   validateUsername: Scalars['Boolean']
   sendConfirmationMail: Scalars['Boolean']
   createTopic: Topic
+  updateTopic: Topic
   createResource: Resource
   addSection: Section
   makePrimary: Resource
@@ -379,6 +386,10 @@ export type MutationSendConfirmationMailArgs = {
 
 export type MutationCreateTopicArgs = {
   data: CreateTopicInput
+}
+
+export type MutationUpdateTopicArgs = {
+  data: UpdateTopicInput
 }
 
 export type MutationCreateResourceArgs = {
@@ -501,6 +512,13 @@ export type RegisterInput = {
 
 export type CreateTopicInput = {
   title: Scalars['String']
+}
+
+export type UpdateTopicInput = {
+  id: Scalars['String']
+  title: Scalars['String']
+  imageType: ImageType
+  image: Scalars['String']
 }
 
 export type CreateResourceInput = {

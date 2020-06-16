@@ -23,6 +23,8 @@ export default function TopicResources() {
         topic {
           title
           slug
+          image
+          imageType
         }
         firstPageSlugsPath
         verified

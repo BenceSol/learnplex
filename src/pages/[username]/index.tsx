@@ -53,6 +53,8 @@ export default function UserProfile() {
         topic {
           title
           slug
+          image
+          imageType
         }
         firstPageSlugsPath
         verified

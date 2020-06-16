@@ -22,6 +22,8 @@ export default function Enrollments({ user }: { user: Partial<User> }) {
           topic {
             title
             slug
+            image
+            imageType
           }
           firstPageSlugsPath
           verified

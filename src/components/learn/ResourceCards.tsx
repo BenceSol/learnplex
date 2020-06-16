@@ -1,15 +1,15 @@
 import {
+  Button,
   Card,
   Col,
-  Row,
-  Space,
-  Tag,
-  Typography,
-  Button,
-  Tooltip,
-  Skeleton,
   Empty,
   message,
+  Row,
+  Skeleton,
+  Space,
+  Tag,
+  Tooltip,
+  Typography,
 } from 'antd'
 import React from 'react'
 import { useRouter } from 'next/router'
@@ -17,7 +17,7 @@ import { useMutation, useQuery } from 'urql'
 import NProgress from 'nprogress'
 import { TagOutlined, UserOutlined } from '@ant-design/icons'
 
-import { Progress, Resource } from '../../graphql/types'
+import { ImageType, Progress, Resource } from '../../graphql/types'
 import {
   togglePrimaryStatus,
   togglePublishStatus,
@@ -269,6 +269,18 @@ export default function ResourceCards({
               hoverable
               actions={getActions({ resource })}
               onClick={() => goToResource({ resource })}
+              cover={
+                resource.topic.imageType === ImageType.DevIcon ? (
+                  <div className={'text-center p-5'}>
+                    <i
+                      className={`devicon-${resource.topic.image}`}
+                      style={{ fontSize: '100px' }}
+                    />
+                  </div>
+                ) : (
+                  <img src={resource.topic.image} alt={''} />
+                )
+              }
             >
               <Card.Meta
                 title={
@@ -291,9 +303,8 @@ export default function ResourceCards({
                     </Typography.Paragraph>
                   </Typography>
                 }
-                // className={'overflow-scroll'}
                 style={{
-                  height: '100px',
+                  height: '60px',
                 }}
               />
               <br />

@@ -5,6 +5,7 @@ import Router from 'next/router'
 import NProgress from 'nprogress'
 import ReactGA from 'react-ga'
 
+import 'devicon/devicon.min.css'
 import 'react-markdown-editor-lite/lib/index.css'
 import 'highlight.js/styles/a11y-light.css'
 import '../styles/nprogress.css'

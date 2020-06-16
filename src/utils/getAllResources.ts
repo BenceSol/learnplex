@@ -16,6 +16,8 @@ export async function getAllResources() {
         topic {
           title
           slug
+          image
+          imageType
         }
         firstPageSlugsPath
         verified

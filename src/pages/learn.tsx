@@ -21,6 +21,8 @@ export default function AllResources() {
         topic {
           title
           slug
+          image
+          imageType
         }
         firstPageSlugsPath
         verified

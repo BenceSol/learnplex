@@ -26,6 +26,8 @@ export default function Home() {
         topic {
           title
           slug
+          image
+          imageType
         }
         firstPageSlugsPath
         verified
