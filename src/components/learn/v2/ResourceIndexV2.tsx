@@ -79,19 +79,28 @@ export default function ResourceIndexV2({ resource, sectionsMap }: Props) {
                 <Button
                   type={'primary'}
                   onClick={() => router.push('/register')}
+                  size={'large'}
                 >
                   Start Learning
                 </Button>
               </Tooltip>
             ) : !enrolled ? (
               <Tooltip title={'You can track your progress in your profile'}>
-                <Button type={'primary'} onClick={() => startLearning()}>
+                <Button
+                  type={'primary'}
+                  onClick={() => startLearning()}
+                  size={'large'}
+                >
                   Start Learning
                 </Button>
               </Tooltip>
             ) : (
               <Tooltip title={'You can track your progress in your profile'}>
-                <Button type={'primary'} onClick={() => startLearning()}>
+                <Button
+                  type={'primary'}
+                  onClick={() => startLearning()}
+                  size={'large'}
+                >
                   Continue Learning
                 </Button>
               </Tooltip>
