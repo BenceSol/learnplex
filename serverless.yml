@@ -1,5 +1,5 @@
 myNextApplication:
-  component: serverless-next.js@1.11.5
+  component: serverless-next.js@1.14.0
   inputs:
     domain:
       - ${env.subdomain}
