@@ -149,7 +149,7 @@ export default function Header() {
             style={{
               fontSize: 'x-large',
               fontWeight: 'bold',
-              marginLeft: xs ? '-25px' : '-10px',
+              marginLeft: xs ? '-15px' : '-10px',
             }}
           >
             Coderplex
