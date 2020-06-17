@@ -1,5 +1,15 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Menu, Affix, message, Grid, Tooltip, Popconfirm } from 'antd'
+import {
+  Button,
+  Menu,
+  Affix,
+  message,
+  Grid,
+  Tooltip,
+  Popconfirm,
+  Row,
+  Col,
+} from 'antd'
 import { useRouter } from 'next/router'
 import {
   EditOutlined,
@@ -114,17 +124,37 @@ export default function Header() {
   }
 
   return (
-    <Affix offsetTop={0}>
+    <Affix offsetTop={0} style={{ width: '100vw' }}>
       <div className={'header border-bottom'}>
-        <div className={'logo cursor-pointer'} onClick={() => router.push('/')}>
-          <img
-            src={'/icons/android-chrome-512x512.png'}
-            alt={'Coderplex Logo'}
-          />
-          <span className={'font-large'}>
-            <b>Coderplex</b>
-          </span>
-        </div>
+        <Row>
+          <Col
+            className={'cursor-pointer'}
+            span={xs ? 7 : 3}
+            onClick={() => router.push('/')}
+          >
+            <img
+              src={'/icons/android-chrome-512x512.png'}
+              alt={'Coderplex Logo'}
+              style={{
+                objectFit: 'cover',
+                width: xs ? '40%' : '50%',
+                height: '50%',
+                marginLeft: '20px',
+              }}
+            />
+          </Col>
+          <Col
+            className={'cursor-pointer'}
+            onClick={() => router.push('/')}
+            style={{
+              fontSize: 'x-large',
+              fontWeight: 'bold',
+              marginLeft: xs ? '-25px' : '-10px',
+            }}
+          >
+            Coderplex
+          </Col>
+        </Row>
         <Menu
           className={'top-nav bg-initial border-0'}
           mode={'horizontal'}
