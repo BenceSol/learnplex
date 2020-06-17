@@ -1,10 +1,9 @@
 import React from 'react'
-import { Layout, Grid } from 'antd'
+import { Layout } from 'antd'
 
 import Header from './Header'
 
 export default function SiteLayout({ children }: { children: any }) {
-  const { xs } = Grid.useBreakpoint()
   return (
     <>
       <Layout className={'mh-100vh'}>

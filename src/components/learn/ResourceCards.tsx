@@ -5,7 +5,6 @@ import {
   Empty,
   message,
   Row,
-  Skeleton,
   Space,
   Tag,
   Tooltip,
@@ -13,16 +12,13 @@ import {
 } from 'antd'
 import React from 'react'
 import { useRouter } from 'next/router'
-import { useMutation, useQuery } from 'urql'
-import NProgress from 'nprogress'
 import { TagOutlined, UserOutlined } from '@ant-design/icons'
 
-import { ImageType, Progress, Resource } from '../../graphql/types'
+import { ImageType, Resource } from '../../graphql/types'
 import {
   togglePrimaryStatus,
   togglePublishStatus,
 } from '../../utils/togglePublishStatus'
-import { useAuthUser } from '../../lib/store'
 
 export default function ResourceCards({
   resources,
@@ -50,72 +46,11 @@ export default function ResourceCards({
     await router.push(`/${username}/resources`)
   }
 
-  const user = useAuthUser((state) => state.user)
-  const isLoggedIn = !!user
   const isAdminPage = router.asPath === '/_admin'
-
-  const USER_PROGRESS_LIST_QUERY = `
-    query {
-      userProgressList {
-        resource {
-          id
-        }
-      }
-    }
-  `
-
-  const START_PROGRESS_MUTATION = `
-    mutation($resourceId: String!) {
-      startProgress(resourceId: $resourceId) {
-        id
-        resource {
-          slug
-          user {
-            username
-          }
-          firstPageSlugsPath
-        }
-      }
-    }
-  `
-
-  const [, startProgressMutation] = useMutation(START_PROGRESS_MUTATION)
-
-  const [{ data, fetching, error }] = useQuery({
-    query: USER_PROGRESS_LIST_QUERY,
-  })
-
-  if (fetching) {
-    return <Skeleton active={true} />
-  }
-
-  let resourceIds: string[] = []
-
-  if (!fetching && !error) {
-    resourceIds = data.userProgressList.map(
-      (progress: Progress) => progress.resource.id
-    )
-  }
 
   const goToResource = async ({ resource }: { resource: Resource }) => {
     await router.push(`/learn/${resource.slug}`)
   }
-
-  const startProgress = ({ resourceId }: { resourceId: string }) => {
-    NProgress.start()
-    startProgressMutation({ resourceId }).then(async (result) => {
-      if (result.error) {
-        console.log({ startProgressError: result.error })
-      } else {
-        console.log({ result })
-        await goToResource({ resource: result.data.startProgress.resource })
-      }
-    })
-    NProgress.done()
-  }
-
-  const hasStartedLearning = ({ resourceId }: { resourceId: string }) =>
-    resourceIds.includes(resourceId)
 
   const TRUNCATED_LENGTH = 15
   const truncate = (str: string) =>
@@ -135,12 +70,6 @@ export default function ResourceCards({
     ) : (
       children
     )
-
-  const goToRegisterPage = (e: any) => {
-    e.preventDefault()
-    e.stopPropagation()
-    router.push('/register')
-  }
 
   const togglePublish = async ({
     resourceId,
@@ -221,45 +150,6 @@ export default function ResourceCards({
       )
     }
     return actions
-    // if (isLoggedIn) {
-    //   actions.push(
-    //     <Tooltip title={'You can track your progress in your profile'}>
-    //       {hasStartedLearning({ resourceId: resource.id }) ? (
-    //         <Button
-    //           type={'primary'}
-    //           block={true}
-    //           disabled={!isLoggedIn}
-    //           onClick={() => goToResource({ resource })}
-    //           style={{ width: '100%' }}
-    //         >
-    //           Continue Learning
-    //         </Button>
-    //       ) : (
-    //         <Button
-    //           type={'primary'}
-    //           block={true}
-    //           onClick={() => startProgress({ resourceId: resource.id })}
-    //           style={{ width: '100%' }}
-    //         >
-    //           Start Learning
-    //         </Button>
-    //       )}
-    //     </Tooltip>
-    //   )
-    // } else {
-    //   actions.push(
-    //     <Tooltip title={'Login to start learning and track your progress'}>
-    //       <Button
-    //         type={'primary'}
-    //         onClick={(e) => goToRegisterPage(e)}
-    //         style={{ width: '100%' }}
-    //       >
-    //         Start Learning
-    //       </Button>
-    //     </Tooltip>
-    //   )
-    // }
-    // return actions
   }
 
   const ResourceGrid = ({ resources }: { resources: Resource[] }) => {
