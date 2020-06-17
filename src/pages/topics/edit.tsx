@@ -30,7 +30,11 @@ export default function EditTopics() {
         if (result.error) {
           message.error(result.error.message)
         } else {
-          setTopics(result.data.topics)
+          const fetchedTopics: Topic[] = result.data.topics
+          fetchedTopics.sort((a, b) => {
+            return a.id < b.id ? -1 : a.id > b.id ? 1 : 0
+          })
+          setTopics(fetchedTopics)
         }
       })
   }, [])
