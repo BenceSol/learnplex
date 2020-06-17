@@ -7,6 +7,7 @@ import { ACCESS_TOKEN_COOKIE, REFRESH_TOKEN_COOKIE } from '../constants'
 import { Resource } from '../graphql/types'
 import ResourceCards from '../components/learn/ResourceCards'
 import { SEO } from '../components/SEO'
+import { Typography } from 'antd'
 
 export default function Home() {
   const router = useRouter()
@@ -59,6 +60,14 @@ export default function Home() {
   return (
     <>
       <SEO title={'Develop'} />
+      <div className={'py-5 text-center'} style={{ background: '#374355' }}>
+        <Typography.Title level={2} style={{ color: 'white' }}>
+          Open Source Learning Resources
+        </Typography.Title>
+        <Typography.Title level={3} style={{ color: 'white' }}>
+          To master your favourite technology
+        </Typography.Title>
+      </div>
       <ResourceCards resources={resources} />
     </>
   )

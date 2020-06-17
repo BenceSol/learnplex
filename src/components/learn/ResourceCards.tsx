@@ -264,88 +264,98 @@ export default function ResourceCards({
 
   const ResourceGrid = ({ resources }: { resources: Resource[] }) => {
     return (
-      <Row gutter={[32, 32]} style={{ marginTop: '20px' }}>
-        {resources.map((resource) => (
-          <Col key={resource.id} xs={24} sm={8} md={6}>
-            <Card
-              className={'resource-card'}
-              key={resource.id}
-              hoverable
-              actions={getActions({ resource })}
-              onClick={() => goToResource({ resource })}
-              cover={
-                resource.topic.imageType === ImageType.DevIcon ? (
-                  <div className={'text-center p-4'}>
-                    <i
-                      className={`devicon-${resource.topic.image}`}
-                      style={{ fontSize: '100px' }}
-                    />
-                  </div>
-                ) : (
-                  <img src={resource.topic.image} alt={''} />
-                )
-              }
-            >
-              <Card.Meta
-                title={
-                  <Tooltip title={resource.title}>
+      <>
+        <Typography.Title className={'text-center my-3'} level={3}>
+          Available Resources
+        </Typography.Title>
+        <Row gutter={[32, 32]} style={{ marginTop: '20px' }} className={'px-5'}>
+          {resources.map((resource) => (
+            <Col key={resource.id} xs={24} sm={8} md={6}>
+              <Card
+                className={'resource-card'}
+                key={resource.id}
+                hoverable
+                actions={getActions({ resource })}
+                onClick={() => goToResource({ resource })}
+                cover={
+                  resource.topic.imageType === ImageType.DevIcon ? (
+                    <div className={'text-center p-4'}>
+                      <i
+                        className={`devicon-${resource.topic.image}`}
+                        style={{ fontSize: '100px' }}
+                      />
+                    </div>
+                  ) : (
+                    <img src={resource.topic.image} alt={''} />
+                  )
+                }
+              >
+                <Card.Meta
+                  title={
+                    <Tooltip title={resource.title}>
+                      <Typography>
+                        <Typography.Title level={4} ellipsis={true}>
+                          {resource.title}
+                        </Typography.Title>
+                      </Typography>
+                    </Tooltip>
+                  }
+                  description={
                     <Typography>
-                      <Typography.Title level={4} ellipsis={true}>
-                        {resource.title}
-                      </Typography.Title>
+                      <Typography.Paragraph
+                        ellipsis={{
+                          rows: 3,
+                        }}
+                      >
+                        {resource.description}
+                      </Typography.Paragraph>
                     </Typography>
-                  </Tooltip>
-                }
-                description={
-                  <Typography>
-                    <Typography.Paragraph
-                      ellipsis={{
-                        rows: 3,
-                      }}
+                  }
+                  style={{
+                    height: '75px',
+                  }}
+                />
+                <br />
+                <br />
+                <Space style={{ overflowWrap: 'normal' }}>
+                  <TruncatedTag value={resource.user.username}>
+                    <Tag
+                      className={'cursor-pointer'}
+                      color={'blue'}
+                      icon={<UserOutlined />}
+                      onClick={(e) =>
+                        goToUserResources({
+                          e,
+                          username: resource.user.username,
+                        })
+                      }
                     >
-                      {resource.description}
-                    </Typography.Paragraph>
-                  </Typography>
-                }
-                style={{
-                  height: '75px',
-                }}
-              />
-              <br />
-              <br />
-              <Space style={{ overflowWrap: 'normal' }}>
-                <TruncatedTag value={resource.user.username}>
-                  <Tag
-                    className={'cursor-pointer'}
-                    color={'blue'}
-                    icon={<UserOutlined />}
-                    onClick={(e) =>
-                      goToUserResources({ e, username: resource.user.username })
-                    }
-                  >
-                    {truncate(resource.user.username)}
-                  </Tag>
-                </TruncatedTag>
-                <TruncatedTag value={resource.topic.slug}>
-                  <Tag
-                    className={'cursor-pointer'}
-                    onClick={(e) => goToTopic({ e, slug: resource.topic.slug })}
-                    color={'magenta'}
-                    icon={<TagOutlined />}
-                  >
-                    {truncate(resource.topic.slug)}
-                  </Tag>
-                </TruncatedTag>
-              </Space>
-            </Card>
-          </Col>
-        ))}
-        {resources.length === 0 && (
-          <Col offset={8} md={8} className={'text-center'}>
-            <Empty description={'There are no resources here.'} />
-          </Col>
-        )}
-      </Row>
+                      {truncate(resource.user.username)}
+                    </Tag>
+                  </TruncatedTag>
+                  <TruncatedTag value={resource.topic.slug}>
+                    <Tag
+                      className={'cursor-pointer'}
+                      onClick={(e) =>
+                        goToTopic({ e, slug: resource.topic.slug })
+                      }
+                      color={'magenta'}
+                      icon={<TagOutlined />}
+                    >
+                      {truncate(resource.topic.slug)}
+                    </Tag>
+                  </TruncatedTag>
+                </Space>
+              </Card>
+            </Col>
+          ))}
+          {resources.length === 0 && (
+            <Col offset={8} md={8} className={'text-center'}>
+              <Empty description={'There are no resources here.'} />
+            </Col>
+          )}
+        </Row>
+      </>
     )
   }
 

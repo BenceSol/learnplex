@@ -11,7 +11,7 @@ export default function SiteLayout({ children }: { children: any }) {
         <Layout.Header className={'pl-0'}>
           <Header />
         </Layout.Header>
-        <Layout.Content className={`pt-3 py-2 ${xs ? 'px-2' : 'px-5'} h-100p`}>
+        <Layout.Content className={`pt-3 py-2 h-100p`}>
           {children}
         </Layout.Content>
       </Layout>
