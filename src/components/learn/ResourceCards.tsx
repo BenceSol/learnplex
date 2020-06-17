@@ -52,7 +52,7 @@ export default function ResourceCards({
 
   const user = useAuthUser((state) => state.user)
   const isLoggedIn = !!user
-  const isAdminPage = router.asPath === '/___admin'
+  const isAdminPage = router.asPath === '/_admin'
 
   const USER_PROGRESS_LIST_QUERY = `
     query {
@@ -185,6 +185,7 @@ export default function ResourceCards({
     }
     return [
       <Button
+        block={true}
         type={resource.published ? 'default' : 'primary'}
         danger={resource.published}
         onClick={(e) => togglePublish({ resourceId: resource.id, e })}
@@ -192,6 +193,7 @@ export default function ResourceCards({
         {resource.published ? 'Unpublish' : 'Publish'}
       </Button>,
       <Button
+        block={true}
         type={resource.verified ? 'default' : 'primary'}
         danger={resource.verified}
         onClick={(e) => togglePrimary({ resourceId: resource.id, e })}
@@ -209,6 +211,7 @@ export default function ResourceCards({
     if (router.asPath === '/resources/me') {
       actions.push(
         <Button
+          block={true}
           type={resource.published ? 'default' : 'primary'}
           danger={resource.published}
           onClick={(e) => togglePublish({ resourceId: resource.id, e })}
@@ -217,61 +220,62 @@ export default function ResourceCards({
         </Button>
       )
     }
-    console.log({ isLoggedIn })
-    if (isLoggedIn) {
-      actions.push(
-        <Tooltip title={'You can track your progress in your profile'}>
-          {hasStartedLearning({ resourceId: resource.id }) ? (
-            <Button
-              type={'primary'}
-              block={true}
-              disabled={!isLoggedIn}
-              onClick={() => goToResource({ resource })}
-              style={{ width: '70%' }}
-            >
-              Continue Learning
-            </Button>
-          ) : (
-            <Button
-              type={'primary'}
-              block={true}
-              onClick={() => startProgress({ resourceId: resource.id })}
-              style={{ width: '70%' }}
-            >
-              Start Learning
-            </Button>
-          )}
-        </Tooltip>
-      )
-    } else {
-      actions.push(
-        <Tooltip title={'Login to start learning and track your progress'}>
-          <Button
-            type={'primary'}
-            onClick={(e) => goToRegisterPage(e)}
-            style={{ width: '70%' }}
-          >
-            Start Learning
-          </Button>
-        </Tooltip>
-      )
-    }
     return actions
+    // if (isLoggedIn) {
+    //   actions.push(
+    //     <Tooltip title={'You can track your progress in your profile'}>
+    //       {hasStartedLearning({ resourceId: resource.id }) ? (
+    //         <Button
+    //           type={'primary'}
+    //           block={true}
+    //           disabled={!isLoggedIn}
+    //           onClick={() => goToResource({ resource })}
+    //           style={{ width: '100%' }}
+    //         >
+    //           Continue Learning
+    //         </Button>
+    //       ) : (
+    //         <Button
+    //           type={'primary'}
+    //           block={true}
+    //           onClick={() => startProgress({ resourceId: resource.id })}
+    //           style={{ width: '100%' }}
+    //         >
+    //           Start Learning
+    //         </Button>
+    //       )}
+    //     </Tooltip>
+    //   )
+    // } else {
+    //   actions.push(
+    //     <Tooltip title={'Login to start learning and track your progress'}>
+    //       <Button
+    //         type={'primary'}
+    //         onClick={(e) => goToRegisterPage(e)}
+    //         style={{ width: '100%' }}
+    //       >
+    //         Start Learning
+    //       </Button>
+    //     </Tooltip>
+    //   )
+    // }
+    // return actions
   }
 
   const ResourceGrid = ({ resources }: { resources: Resource[] }) => {
     return (
-      <Row gutter={[16, 16]}>
+      <Row gutter={[32, 32]} style={{ marginTop: '20px' }}>
         {resources.map((resource) => (
           <Col key={resource.id} xs={24} sm={8} md={6}>
             <Card
+              className={'resource-card'}
               key={resource.id}
               hoverable
               actions={getActions({ resource })}
               onClick={() => goToResource({ resource })}
               cover={
                 resource.topic.imageType === ImageType.DevIcon ? (
-                  <div className={'text-center p-5'}>
+                  <div className={'text-center p-4'}>
                     <i
                       className={`devicon-${resource.topic.image}`}
                       style={{ fontSize: '100px' }}
@@ -304,7 +308,7 @@ export default function ResourceCards({
                   </Typography>
                 }
                 style={{
-                  height: '60px',
+                  height: '75px',
                 }}
               />
               <br />
